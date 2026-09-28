@@ -1,6 +1,76 @@
 # Offene Punkte
 
-Stand 2026-09-28. Sortiert nach dem, was am ehesten weh tut — nicht nach Aufwand.
+Stand 2026-09-28. Neu hier? Erst Abschnitt 0 lesen — er reicht, um ohne Vorwissen
+weiterzumachen. Danach sortiert nach dem, was am ehesten weh tut, nicht nach Aufwand.
+
+---
+
+## 0 — Für wer übernimmt
+
+**Was das ist.** MDD4All.DME, im Fenster „Synorvia": ein Editor für Objektgraphen. Er
+lädt ein fremdes Datenmodell — eine DLL — zur Laufzeit in einen eigenen Ladekontext,
+zeigt jedes Objekt als Karte und speichert als JSON (vollständig) oder XML (nur zum
+Ansehen, Dictionaries fehlen darin). Ein WPF-Fenster mit Blazor darin (BlazorWebView).
+Geschrieben von mDuckLab, mit Teilen von oalt, der das Projekt betreut.
+
+**Wo alles liegt** — GitHub-Organisation `synorvia-editor`:
+
+| Repo | Inhalt |
+|---|---|
+| `MDD4All.DME-dev` | Hauptprojekt zum Entwickeln, nur `main`. Alle 18 Bibliotheken als Submodule unter `src/`, Projektmappe `src/MDD4All.DME.sln`. |
+| `MDD4All.DME` | Dieselbe App, nur aus den Paketen von nuget.org gebaut. |
+| 15 Bibliotheken und `MDD4All.DME.App.Wpf` | je ein Repo mit `dev` und `main`. Die vier `Synorvia.*` sind forks von oalts `MDD4All.*`. |
+| `oalt/MDD4All.Configuration`, `oalt/MDD4All.Person.DataModels` | oalts eigene Repos, nur eingebunden. Nie dorthin pushen. |
+
+Der Zweig `presentation` in `MDD4All.DME-dev`, `MDD4All.DME.ViewModels` und
+`MDD4All.DME.Views` ist eine dauerhafte Variante ohne dynamisches DLL-Laden, für die
+Studienarbeit. Er wird nie zurückgeführt.
+
+Die Pakete liegen auf nuget.org unter dem Konto `mDuckLab`. Wer veröffentlichen will,
+braucht Zugang zu diesem Konto oder wird dort Mitbesitzer; die 15 Vertrauensregeln
+(Trusted Publishing) hängen an ihm. Ein Schlüssel ist nirgends gespeichert und wird
+auch nicht gebraucht.
+
+**Einrichten auf einem neuen Rechner**
+
+1. Visual Studio 2022 mit .NET 9 SDK. Bisher lief 17.14 mit SDK 9.0.316.
+2. Lange Pfade erlauben, der tiefste hat rund 200 Zeichen:
+   `git config --global core.longpaths true`, dazu in Windows `LongPathsEnabled`
+   einschalten. Trotzdem in einen kurzen Ordner klonen, etwa `C:\work\`.
+3. `git clone --recurse-submodules https://github.com/synorvia-editor/MDD4All.DME-dev.git`
+4. Die Submodule stehen danach auf einem losen Commit. Zum Arbeiten:
+   `git submodule foreach "git checkout dev || true"` — `MDD4All.Configuration` hat
+   nur `main`.
+5. Die Git-Kennung prüfen. Auf einem Firmenrechner ist global oft die Firmenadresse
+   eingestellt; dann in jedem Repo lokal setzen, auch in allen Submodulen.
+6. `src/MDD4All.DME.sln` öffnen und `MDD4All.DME.App.Wpf` starten. Die Einstellungen
+   der App liegen in `%APPDATA%\DME\`.
+
+Vor dem Umbenennen von Ordnern VS Code schließen: dessen C#-Sprachserver hält jeden
+Projektordner offen, und Windows verweigert das Umbenennen darüber.
+
+**Wie hier gearbeitet wird**
+
+- Jedes Projekt ist ein Paar: `<Name>-dev.csproj` mit Projektverweisen, nur dieses
+  steht in der Projektmappe, und `<Name>.csproj` als Paket, nur mit Paketverweisen.
+  `-dev` steht nur im Dateinamen — nie in Ordner, Repo, Namensraum oder DLL.
+- `dev` ist der Arbeitsstand, `main` der zuletzt veröffentlichte. Das Hauptprojekt
+  hat nur `main`. Dort die Zeiger auf die Submodule gesammelt nachziehen, nicht nach
+  jedem einzelnen Commit.
+- Veröffentlichen: Abschnitt 3.
+- Code: Eigenschaften mit ausgeschriebenem `get`/`set`, kein `=>`. Kein `??` und kein
+  `?:`, stattdessen `if`. Kommentare kurz, eine Zeile. Code und Kommentare englisch,
+  Texte der Oberfläche über `AppTexts.resx`, deutsch und englisch.
+- Sprache: `CultureInfo.CurrentUICulture` lässt sich im laufenden BlazorWebView nicht
+  umstellen, es liegt in einem `AsyncLocal`. Die Kultur wird deshalb ausdrücklich
+  übergeben (`MDD4All.Localization`, `LanguageSetter`). Nicht versuchen, sie global zu
+  setzen — das wurde gemessen, es wirkt nicht.
+- Commits englisch: kurze Betreffzeile im Imperativ, darunter das Warum. Keine
+  `Co-Authored-By`-Zeile. oalt heißt in Commits `oalt`.
+- Urheber: Code nur von oalt behält seine Angaben Zeichen für Zeichen. Code von beiden
+  nennt beide, oalt zuerst — `Dr. Oliver Alt, mDuckLab` in Paket, Copyright und
+  LICENSE. oalt hat erlaubt, seinen Code zu veröffentlichen, solange er genannt ist.
+- Keine Klarnamen in Repos und Historie; mDuckLab erscheint nur unter diesem Namen.
 
 ---
 
@@ -27,13 +97,19 @@ ViewModel anzumelden — siehe `StatusBarView`.
 
 ### `.xml` öffnen wirft
 
-Seit längerem notiert, nie untersucht. Vor dem Angehen einmal nachstellen — es ist
-nicht sicher, dass es noch auftritt.
+Die Ursache ist bekannt: `DataSerializer.LoadFromXml` baut einen `XmlSerializer`
+ohne die Ausnahmen, die `XmlSerializerProxy` beim Speichern setzt. `XmlSerializer`
+kann gar keine Dictionaries und wirft schon beim Aufbau, sobald das Modell eines
+enthält. Speichern als XML geht, die Dictionaries fehlen dann. Offen ist die
+Entscheidung: beim Laden dieselben Ausnahmen setzen, oder `.xml` aus dem
+Öffnen-Dialog nehmen.
 
 ### Doppelter Eintrag bei zuletzt geöffneten Dateien
 
 Ebenfalls länger notiert. `AddNewRecentDataFile` entfernt einen vorhandenen
 Eintrag vor dem Einfügen, also entweder ein anderer Pfad oder ein zweiter Aufrufer.
+Verdacht: verglichen wird der Pfad genau — andere Groß- und Kleinschreibung oder `/`
+statt `\` ergeben zwei Einträge.
 
 ---
 
@@ -97,10 +173,8 @@ Alles steht auf `net9.0` oder `netstandard2.0`, nichts mehr auf `net6.0`. Aber
 `net9.0` ist selbst schon aus der Pflege (Mai 2026) — wir stehen dort, weil die
 Apps dort standen und es nichts gekostet hat.
 
-Ruhe bringt erst .NET 10 (LTS bis November 2028). Vorher zu klären: auf dem Rechner
-liegt nur SDK 9.0.316, und Visual Studio ist 2022 in 17.14. Ob das Gespann .NET 10
-treibt oder ein neueres Visual Studio nötig ist, muss nachgesehen werden, bevor
-etwas installiert wird.
+Ruhe bringt erst .NET 10 (LTS bis November 2028). Vorher zu klären, ob die
+installierte Visual-Studio-Fassung .NET 10 treibt oder eine neuere nötig ist.
 
 `MDD4All.FileAccess.WPF` ist seit dem 23.09. ein fork und heißt seit dem 28.09.
 `Synorvia.FileAccess.WPF`. Den Rahmensprung bekäme oalt nur noch von Hand, weil der
@@ -141,6 +215,13 @@ nach der Sprache dort gar nicht mehr — die Ansicht formuliert.
 
 - `MDD4All.Configuration` hat nur einen `main` und keinen `dev`. Es ist oalts Repo,
   dort lässt sich keiner anlegen — bei Bedarf fragen oder abspalten.
+- `MDD4All.Person.DataModels` ist oalts Beispielmodell mit übersetzten
+  `[Display]`-Namen aus `.resx`. Es steht nur zum Ausprobieren in der Projektmappe und
+  ist kein Paket von uns.
+- In `Synorvia.UI.BlazorComponents` haben oalts Commits andere Hashes als in seinem
+  Repo, und sein erster Commit hat die Signatur verloren — Folge einer Bereinigung der
+  Git-Kennung im Juli. Autor und Datum stimmen. Zu beheben nur mit einem force-push
+  auf `dev`.
 
 ---
 
