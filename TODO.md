@@ -1,10 +1,18 @@
 # Offene Punkte
 
-Stand 2026-09-23. Sortiert nach dem, was am ehesten weh tut — nicht nach Aufwand.
+Stand 2026-09-28. Sortiert nach dem, was am ehesten weh tut — nicht nach Aufwand.
 
 ---
 
 ## 1 — Bekannte Fehler
+
+### Ein gemerktes Datenmodell, das es nicht mehr gibt, friert die App ein
+
+Zeigt `CurrentDataModel` oder ein Eintrag der zuletzt benutzten Modelle in
+`%APPDATA%\DME\DmeConfiguration.json` auf eine DLL, die es nicht mehr gibt, hängt die
+App. Aufgetreten am 28.09., nachdem die Ordner umgebaut waren; behoben nur durch
+Leeren der Einträge, nicht im Code. Beim Start und beim Wählen aus der Liste prüfen,
+ob die Datei noch da ist, und einen toten Eintrag verwerfen statt ihn zu laden.
 
 ### Rohdatenansicht folgt den Einstellungen nicht
 
@@ -196,6 +204,15 @@ geschrieben und wurde auf Ansage wieder zurückgenommen; der Kommentar in
 ---
 
 ## Erledigt und deshalb gestrichen
+
+**Am 28.09.:**
+
+- **Die vier forks von oalt heißen `Synorvia.*`** — Repo, Ordner, Namensraum, DLL —
+  und stehen damit neben seinen Paketen statt mit ihnen zu konkurrieren.
+- **Alle fünfzehn Bibliotheken auf nuget.org**, jede mit eigener Vertrauensregel.
+- **Urheberschaft geteilt:** wo Code von oalt und mDuckLab drinsteckt, stehen beide,
+  oalt zuerst; gemessen, nicht geschätzt.
+- **`MDD4All.DME`** baut die App nur aus den Paketen.
 
 **Am 23.09.:**
 
