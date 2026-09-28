@@ -48,44 +48,37 @@ Offen bleibt:
 
 ---
 
-## 3 — NuGet-Pakete (vorgemerkt, nicht angefangen)
+## 3 — NuGet-Pakete
 
-**Die Zweige sagen seit 2026-09-23, was veröffentlicht ist.** In jedem Projekt trägt
-`dev` den Entwicklungsstand und `main` den Stand des zuletzt veröffentlichten Pakets.
-Weil noch keines veröffentlicht ist, steht `main` überall auf dem Anfangsstand: bei
-eigenen Repos auf dem ersten Commit, bei Abspaltungen auf oalts Stand zum Zeitpunkt
-der Abspaltung. Mit jedem Release wird `main` nachgezogen.
+**Seit 2026-09-28 liegen alle vierzehn Bibliotheken auf nuget.org.** Das Repo
+`MDD4All.DME` (ohne `-dev`) baut die App nur aus diesen Paketen — frisch geklont,
+gebaut und gestartet, sie läuft.
 
-Das Hauptprojekt ist die Ausnahme — es wird nie ein Paket, hat deshalb nur `main`,
-und der trägt den aktuellen Entwicklungsstand.
+So geht ein Release, von unten nach oben:
 
-Seit 2026-09-23 steht die Aufteilung: `<Name>-dev.csproj` ist das Projekt, an dem
-gearbeitet wird und das `ProjectReference`s haben darf. `<Name>.csproj` daneben wird
-später zum Paket. In der Projektmappe steht nur die `-dev`-Fassung; `-dev` taucht
-weder im Namensraum noch im Baugruppennamen auf, dafür sorgen zwei Zeilen im
-Projekt.
+- In der Projektmappe steht nur `<Name>-dev.csproj` mit Projektverweisen. Daneben ist
+  `<Name>.csproj` das Paketprojekt und verweist nur auf Pakete von nuget.org.
+- `dev` nach `main` pushen: `build.yml` baut und legt eine Probe in GitHub Packages
+  ab, Version aus `src/version.txt` plus Laufnummer.
+- Auf GitHub „Publish to nuget.org" mit genau dieser Nummer — nur von Hand.
+- Hängt ein Paket an einem geänderten anderen, kommt das untere zuerst raus, dann wird
+  oben die Version angehoben.
+- `main` trägt den veröffentlichten Stand; nachziehen ohne Release nur, wenn sich in
+  `src/` nichts ändert.
 
-Zu tun, wenn es soweit ist:
+Offen:
 
-- **Die schlichten Projekte tragen noch `ProjectReference`s.** Genau das darf ein
-  Paketprojekt nicht — dort müssen `PackageReference`s hin. Betrifft
-  `DME.DataModels`, `DME.DataAccess`, `DME.AssemblyLoading`, `DME.Proxies`, und in
-  den Submodulen alles, was auf ein anderes eigenes Projekt zeigt.
-- **Paketangaben fehlen** bei den vier neuen: Version, Beschreibung, Lizenz,
-  Autoren. Die Submodule von oalt zeigen, wie es aussehen soll.
-- **Beide Projektdateien in einem Ordner teilen sich `obj/`**, und darin liegt
-  `project.assets.json` unter festem Namen. Solange nur die `-dev`-Fassung gebaut
-  wird, stört das nicht. Sobald die Paketprojekte wirklich gebaut werden, brauchen
-  sie ein eigenes `BaseIntermediateOutputPath`.
-- **`MDD4All.UI.Blazor` hat die umgekehrte Lücke:** nur ein `-dev`, kein schlichtes
-  Projekt daneben.
-- **`MDD4All.DME.App.Wpf` trägt beide, aber die schlichte wird nie ein Paket** — aus
-  einer Anwendung wird keines. Sie steht nur da, damit alle achtzehn gleich gebaut
-  sind. Ihre beiden Namen stehen dort ausgeschrieben statt aus dem Projektnamen
-  abgeleitet: ein WPF-Bau legt zwischendurch ein `..._wpftmp.csproj` an, und
-  `MSBuildProjectName` ist dann dieser Name.
-- **`UI.BlazorComponents.csproj` steht auf `net9.0`.** Als veröffentlichtes Paket
-  schließt das ältere Nutzer aus. Bei Bedarf
+- **DataAccess scheitert ohne vorher geladenes Proxies**: `ToJson` wirft, `ToXml`
+  gibt leer zurück, `LoadFromJson` meldet Fehlschlag. Braucht eine Code-Änderung.
+- **Die Versionsprüfung in `publish-nuget.yml` ist zu großzügig** — `2.0.0.1.` ging
+  durch und scheiterte erst beim Bauen. In allen Repos auf einen genauen Ausdruck
+  umstellen.
+- **GitHub baut mit dem neuesten SDK**, zurzeit .NET 10, weil kein `global.json` das
+  festlegt.
+- **Beide Projektdateien in einem Ordner teilen sich `obj/`.** Wer im Hauptprojekt das
+  Paketprojekt baut, überschreibt die `project.assets.json` der `-dev`-Fassung. Im
+  Repo `MDD4All.DME` stört das nicht, dort gibt es nur das Paketprojekt.
+- **`Synorvia.UI.BlazorComponents` steht nur auf `net9.0`.** Bei Bedarf
   `<TargetFrameworks>net8.0;net9.0</TargetFrameworks>`.
 
 ---
