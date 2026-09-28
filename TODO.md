@@ -50,7 +50,7 @@ Offen bleibt:
 
 ## 3 — NuGet-Pakete
 
-**Seit 2026-09-28 liegen alle vierzehn Bibliotheken auf nuget.org.** Das Repo
+**Seit 2026-09-28 liegen alle fünfzehn Bibliotheken auf nuget.org.** Das Repo
 `MDD4All.DME` (ohne `-dev`) baut die App nur aus diesen Paketen — frisch geklont,
 gebaut und gestartet, sie läuft.
 
