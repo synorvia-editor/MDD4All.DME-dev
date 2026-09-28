@@ -37,21 +37,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.Reflection.TypeAnal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.UI.Blazor", "MDD4All.UI.Blazor\src\MDD4All.UI.Blazor\MDD4All.UI.Blazor-dev.csproj", "{33B8F00C-95CE-4A29-8A1B-0A1C44820C47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.UI.BlazorComponents", "MDD4All.UI.BlazorComponents\src\MDD4All.UI.BlazorComponents\MDD4All.UI.BlazorComponents-dev.csproj", "{A59F3DFE-24BE-1CF0-B8A9-38EC3A0B64C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synorvia.UI.BlazorComponents", "Synorvia.UI.BlazorComponents\src\Synorvia.UI.BlazorComponents\Synorvia.UI.BlazorComponents-dev.csproj", "{A59F3DFE-24BE-1CF0-B8A9-38EC3A0B64C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.AssemblyLoading", "MDD4All.DME.AssemblyLoading\src\MDD4All.DME.AssemblyLoading\MDD4All.DME.AssemblyLoading-dev.csproj", "{BF18D98C-15CF-A59F-ECCC-0871E646FE63}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.DME.Proxies", "MDD4All.DME.Proxies\src\MDD4All.DME.Proxies\MDD4All.DME.Proxies-dev.csproj", "{206681C9-01FC-4AEF-1B14-922D83B3ECF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.UI.DataModels", "MDD4All.UI.DataModels\src\MDD4All.UI.DataModels\MDD4All.UI.DataModels-dev.csproj", "{BF4F7AB5-DF8C-EC99-5152-E0C1AF75185F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synorvia.UI.DataModels", "Synorvia.UI.DataModels\src\Synorvia.UI.DataModels\Synorvia.UI.DataModels-dev.csproj", "{BF4F7AB5-DF8C-EC99-5152-E0C1AF75185F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.AssemblyLoading.Contracts", "MDD4All.AssemblyLoading.Contracts\src\MDD4All.AssemblyLoading.Contracts\MDD4All.AssemblyLoading.Contracts-dev.csproj", "{47EB48B3-6E70-032E-0572-D6152C1758B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.Configuration", "MDD4All.Configuration\src\MDD4All.Configuration\MDD4All.Configuration-dev.csproj", "{43E2CC4A-0694-2990-D340-ECF93B4E06AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.FileAccess.Contracts", "MDD4All.FileAccess.Contracts\src\MDD4All.FileAccess.Contracts\MDD4All.FileAccess.Contracts-dev.csproj", "{66FB7F62-FF60-9793-DD30-07BDB0B2DE8D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synorvia.FileAccess.Contracts", "Synorvia.FileAccess.Contracts\src\Synorvia.FileAccess.Contracts\Synorvia.FileAccess.Contracts-dev.csproj", "{66FB7F62-FF60-9793-DD30-07BDB0B2DE8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.FileAccess.WPF", "MDD4All.FileAccess.WPF\src\MDD4All.FileAccess.WPF\MDD4All.FileAccess.WPF-dev.csproj", "{450943A7-CDC2-C24D-236B-0C3E41FB6628}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synorvia.FileAccess.WPF", "Synorvia.FileAccess.WPF\src\Synorvia.FileAccess.WPF\Synorvia.FileAccess.WPF-dev.csproj", "{450943A7-CDC2-C24D-236B-0C3E41FB6628}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDD4All.Localization", "MDD4All.Localization\src\MDD4All.Localization\MDD4All.Localization-dev.csproj", "{0921CA2D-427C-0BA7-F0B3-2EAAFCA2AF9A}"
 EndProject

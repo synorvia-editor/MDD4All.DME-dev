@@ -101,8 +101,9 @@ liegt nur SDK 9.0.316, und Visual Studio ist 2022 in 17.14. Ob das Gespann .NET 
 treibt oder ein neueres Visual Studio nötig ist, muss nachgesehen werden, bevor
 etwas installiert wird.
 
-`MDD4All.FileAccess.WPF` liegt seit dem 23.09. als eigene Abspaltung unter
-`mDuckLab`. oalt könnte den Rahmensprung als Pull Request bekommen.
+`MDD4All.FileAccess.WPF` ist seit dem 23.09. ein fork und heißt seit dem 28.09.
+`Synorvia.FileAccess.WPF`. Den Rahmensprung bekäme oalt nur noch von Hand, weil der
+Namensraum abweicht.
 
 ---
 

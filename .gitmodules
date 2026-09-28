@@ -1,9 +1,10 @@
-[submodule "src/MDD4All.UI.DataModels"]
-	path = src/MDD4All.UI.DataModels
-	url = https://github.com/synorvia-editor/MDD4All.UI.DataModels.git
-[submodule "src/MDD4All.UI.BlazorComponents"]
-	path = src/MDD4All.UI.BlazorComponents
-	url = https://github.com/synorvia-editor/MDD4All.UI.BlazorComponents.git
+[submodule "src/Synorvia.UI.DataModels"]
+	path = src/Synorvia.UI.DataModels
+	url = https://github.com/synorvia-editor/Synorvia.UI.DataModels.git
+	branch = dev
+[submodule "src/Synorvia.UI.BlazorComponents"]
+	path = src/Synorvia.UI.BlazorComponents
+	url = https://github.com/synorvia-editor/Synorvia.UI.BlazorComponents.git
 	branch = dev
 [submodule "src/MDD4All.DME.AssemblyTree"]
 	path = src/MDD4All.DME.AssemblyTree
@@ -12,13 +13,13 @@
 [submodule "src/MDD4All.Configuration"]
 	path = src/MDD4All.Configuration
 	url = https://github.com/oalt/MDD4All.Configuration.git
-[submodule "src/MDD4All.FileAccess.Contracts"]
-	path = src/MDD4All.FileAccess.Contracts
-	url = https://github.com/synorvia-editor/MDD4All.FileAccess.Contracts.git
+[submodule "src/Synorvia.FileAccess.Contracts"]
+	path = src/Synorvia.FileAccess.Contracts
+	url = https://github.com/synorvia-editor/Synorvia.FileAccess.Contracts.git
 	branch = dev
-[submodule "src/MDD4All.FileAccess.WPF"]
-	path = src/MDD4All.FileAccess.WPF
-	url = https://github.com/synorvia-editor/MDD4All.FileAccess.WPF.git
+[submodule "src/Synorvia.FileAccess.WPF"]
+	path = src/Synorvia.FileAccess.WPF
+	url = https://github.com/synorvia-editor/Synorvia.FileAccess.WPF.git
 	branch = dev
 [submodule "src/MDD4All.AssemblyLoading.Contracts"]
 	path = src/MDD4All.AssemblyLoading.Contracts
