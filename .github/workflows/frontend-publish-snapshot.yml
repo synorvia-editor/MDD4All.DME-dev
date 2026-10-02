@@ -48,7 +48,7 @@ jobs:
 
     - name: Copy Synorvia app files
       run: |
-        robocopy /E .\src\MDD4All.DME\bin\Release\net9.0-windows7.0\publish\win-x86\ ${{env.OUTPUT_PATH}}
+        robocopy /E .\src\MDD4All.DME.App.Wpf\src\MDD4All.DME.App.Wpf\bin\Release\net9.0-windows7.0\publish\win-x86\ ${{env.OUTPUT_PATH}}
         if ($lastexitcode -lt 8) { exit 0 } else { exit 1 }
 
     - name: Zip Synorvia files
