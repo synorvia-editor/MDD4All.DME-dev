@@ -38,7 +38,7 @@ jobs:
       run: echo $env:VERSION
 
     - name: Publish
-      run: dotnet publish -p:PublishProfile=FolderProfile -r Win-86 -c Release /p:Version=${{env.VERSION}} .\src\${{env.STARTUP_PROJECT}}
+      run: dotnet publish -p:PublishProfile=FolderProfile -c Release /p:Version=${{env.VERSION}} .\src\${{env.STARTUP_PROJECT}}
 
     - name: Create output directories
       run: |
@@ -60,7 +60,7 @@ jobs:
     - name: Copy Synorvia zip file to dist directory
       run: xcopy /y .\output\Synorvia\Synorvia_${{env.VERSION}}.zip .\artifacts\
 
-    - name: Upload SpecIFicator artifact
+    - name: Upload Synorvia artifact
       uses: actions/upload-artifact@v4
       with:
         name: Synorvia_${{env.VERSION}}
