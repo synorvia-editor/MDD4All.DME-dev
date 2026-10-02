@@ -8,7 +8,7 @@ jobs:
     runs-on: windows-2025
     env:
       SOLUTION_NAME: MDD4All.DME.sln
-      STARTUP_PROJECT: MDD4All.DME.App.Wpf\src\MDD4All.DME.App.Wpf\MDD4All.DME.App.Wpf.csproj
+      STARTUP_PROJECT: MDD4All.DME.App.Wpf\src\MDD4All.DME.App.Wpf\MDD4All.DME.App.Wpf-dev.csproj
       OUTPUT_PATH: .\output\Synorvia\
       
     steps:
