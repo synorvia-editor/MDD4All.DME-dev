@@ -61,7 +61,7 @@ jobs:
       run: xcopy /y .\output\Synorvia\Synorvia_${{env.VERSION}}.zip .\artifacts\
 
     - name: Upload SpecIFicator artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Synorvia_${{env.VERSION}}
         path: artifacts\*.zip
