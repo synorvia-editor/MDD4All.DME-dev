@@ -133,9 +133,3 @@ Workflows in [`.github/workflows/`](.github/workflows):
 - **Development Integration Build** (`integration-dev-build.yml`): runs on pushes to `main` and `dev` and on pull requests to `main`. It checks out all submodules, restores and builds the solution with .NET 9 on Windows. The version is generated as `yyyy.M.d.<run number>`.
 - **Build frontend snapshot** (`frontend-publish-snapshot.yml`): started manually. It publishes `MDD4All.DME.App.Wpf-dev` with the `FolderProfile` and uploads the zipped application as a snapshot build.
 
-## Further documents
-
-- [TESTANLEITUNG.md](TESTANLEITUNG.md): test procedure on a clean machine (German)
-- [TODO.md](TODO.md): open tasks
-- [AUTHORS.md](AUTHORS.md)
-- [LICENSE](LICENSE): MIT
